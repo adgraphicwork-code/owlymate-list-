@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owlymate — User Flows</title>
+<style>
+  :root {
+    --bg: #F4F6FB;
+    --bg2: #EAEEF6;
+    --surface: #FFFFFF;
+    --surface2: #FFFFFF;
+    --border: rgba(15,30,60,0.10);
+    --text: #1F2937;
+    --gray: #5B6472;
+    --gray-dim: #8A93A3;
+    --white: #0F1626;
+    --blue: #3B6FE0;
+    --blue-light: #6E9BFF;
+    --purple: #7C5CFC;
+    --purple-light: #8B6CFF;
+    /* stage categories */
+    --c-social: #D2632F;
+    --c-social-bg: rgba(240,138,93,0.16);
+    --c-social-bd: rgba(216,99,47,0.55);
+    --c-web: #6D4FE0;
+    --c-web-bg: rgba(124,92,252,0.14);
+    --c-web-bd: rgba(124,92,252,0.5);
+    --c-data: #5B6472;
+    --c-data-bg: rgba(91,100,114,0.13);
+    --c-data-bd: rgba(91,100,114,0.45);
+    --c-money: #C2820E;
+    --c-money-bg: rgba(245,181,68,0.20);
+    --c-money-bd: rgba(194,130,14,0.5);
+    --c-app: #0E9E76;
+    --c-app-bg: rgba(16,185,129,0.15);
+    --c-app-bd: rgba(14,158,118,0.5);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(160deg, #F4F6FB 0%, #EDF1F8 45%, #F0EDFA 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .blobs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; }
+  .blob-1 { width: 460px; height: 460px; top: -120px; left: -120px; background: radial-gradient(circle, rgba(86,139,255,0.4) 0%, transparent 70%); }
+  .blob-2 { width: 380px; height: 380px; top: 30%; right: -140px; background: radial-gradient(circle, rgba(124,92,252,0.3) 0%, transparent 70%); }
+  .blob-3 { width: 420px; height: 420px; bottom: -100px; left: 30%; background: radial-gradient(circle, rgba(16,185,129,0.2) 0%, transparent 70%); }
+
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  header { text-align: center; margin-bottom: 14px; }
+  .eyebrow {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 46px); font-weight: 800; color: var(--white);
+    letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 14px;
+  }
+  h1 em { font-style: normal; background: linear-gradient(135deg, var(--purple-light), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .lede { font-size: 16px; color: var(--gray); max-width: 620px; margin: 0 auto; }
+
+  .gbar { height: 3px; width: 100%; max-width: 720px; margin: 30px auto 8px;
+    background: linear-gradient(90deg, var(--purple), var(--blue)); border-radius: 3px; }
+
+  /* legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: center; margin: 32px auto 8px; max-width: 820px; }
+  .leg { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray); }
+  .leg .dot { width: 12px; height: 12px; border-radius: 4px; border: 1px solid; }
+  .leg.social .dot { background: var(--c-social-bg); border-color: var(--c-social-bd); }
+  .leg.web .dot { background: var(--c-web-bg); border-color: var(--c-web-bd); }
+  .leg.data .dot { background: var(--c-data-bg); border-color: var(--c-data-bd); }
+  .leg.money .dot { background: var(--c-money-bg); border-color: var(--c-money-bd); }
+  .leg.app .dot { background: var(--c-app-bg); border-color: var(--c-app-bd); }
+
+  /* flows layout */
+  .flows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px; align-items: start; }
+  @media (max-width: 900px) { .flows { grid-template-columns: 1fr; max-width: 460px; margin-left: auto; margin-right: auto; } }
+
+  .flow-col {
+    background: rgba(255,255,255,0.75); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px 18px 24px; backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(31,41,55,0.06);
+  }
+  .flow-head { margin-bottom: 18px; }
+  .flow-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 8px; font-size: 13px; font-weight: 800;
+    background: linear-gradient(135deg, var(--purple), var(--blue)); color: #FFFFFF; margin-bottom: 10px;
+  }
+  .flow-title { font-size: 17px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; margin-bottom: 4px; }
+  .flow-sub { font-size: 12.5px; color: var(--gray-dim); line-height: 1.45; }
+
+  .steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .step-wrap { display: flex; flex-direction: column; align-items: stretch; }
+  .step {
+    position: relative; text-align: left; width: 100%; cursor: pointer;
+    background: #FFFFFF; border: 1px solid rgba(15,30,60,0.12); border-left: 3px solid var(--bd, var(--border));
+    border-radius: 10px; padding: 11px 13px; color: var(--text);
+    font-family: inherit; transition: transform 0.12s, border-color 0.12s, background 0.12s, box-shadow 0.12s;
+    box-shadow: 0 1px 3px rgba(31,41,55,0.05);
+  }
+  .step:hover { transform: translateY(-1px); background: #FBFCFE; box-shadow: 0 4px 14px rgba(31,41,55,0.10); }
+  .step.open { background: #F7F9FE; box-shadow: 0 4px 14px rgba(31,41,55,0.10); }
+  .step-title { font-size: 14px; font-weight: 700; color: var(--white); display: flex; align-items: center; justify-content: space-between; }
+  .step-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+  .step-sub { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .step-desc { font-size: 12.5px; color: var(--gray); line-height: 1.55; max-height: 0; overflow: hidden; transition: max-height 0.28s ease, margin 0.28s ease; }
+  .step.open .step-desc { max-height: 240px; margin-top: 9px; }
+  .chev { transition: transform 0.2s; font-size: 11px; color: var(--gray-dim); }
+  .step.open .chev { transform: rotate(180deg); }
+
+  /* category tints on step left border + tag */
+  .s-social { --bd: var(--c-social-bd); }
+  .s-social .step-tag { background: var(--c-social-bg); color: var(--c-social); }
+  .s-web { --bd: var(--c-web-bd); }
+  .s-web .step-tag { background: var(--c-web-bg); color: var(--c-web); }
+  .s-data { --bd: var(--c-data-bd); }
+  .s-data .step-tag { background: var(--c-data-bg); color: var(--c-data); }
+  .s-money { --bd: var(--c-money-bd); }
+  .s-money .step-tag { background: var(--c-money-bg); color: var(--c-money); }
+  .s-app { --bd: var(--c-app-bd); }
+  .s-app .step-tag { background: var(--c-app-bg); color: var(--c-app); }
+
+  .connector { width: 3px; height: 22px; background: var(--blue); opacity: 0.5; margin: 0 auto; position: relative; border-radius: 2px; }
+  .connector::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid var(--blue); }
+
+  .entry-group { border: 1px dashed rgba(216,99,47,0.45); border-radius: 12px; padding: 10px 10px 12px; background: rgba(240,138,93,0.05); }
+  .entry-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--c-social); margin-bottom: 8px; text-align: center; }
+  .entry-grid { display: flex; flex-direction: column; gap: 8px; }
+  .branch-note { font-size: 11px; color: var(--gray-dim); text-align: center; padding: 5px 0; font-style: italic; }
+
+  .note {
+    margin-top: 40px; background: rgba(86,139,255,0.07); border: 1px solid rgba(86,139,255,0.3);
+    border-radius: 14px; padding: 20px 22px; font-size: 13.5px; color: var(--gray); line-height: 1.6;
+  }
+  .note strong { color: var(--white); }
+
+  footer { text-align: center; margin-top: 40px; font-size: 12px; color: var(--gray-dim); }
+  .hint { text-align: center; font-size: 12.5px; color: var(--gray-dim); margin-top: 26px; }
+</style>
+</head>
+<body>
+<div class="blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Owlymate · Organic Growth</div>
+    <h1>User Flows — <em>social to course</em></h1>
+    <p class="lede">Three acquisition paths from organic social traffic into the app, from first touch to a personalized course. Tap any step for detail.</p>
+    <div class="gbar"></div>
+  </header>
+
+  <div class="legend">
+    <div class="leg social"><span class="dot"></span>Social entry</div>
+    <div class="leg web"><span class="dot"></span>Web (landing / quiz)</div>
+    <div class="leg data"><span class="dot"></span>Data / freebie</div>
+    <div class="leg money"><span class="dot"></span>Monetization</div>
+    <div class="leg app"><span class="dot"></span>In-app</div>
+  </div>
+
+  <div class="flows" id="flows"></div>
+
+  <div class="note">
+    <strong>How they differ.</strong> Flow 1 warms the user up with a free PDF lead magnet before the quiz; both the landing page and the PDF link to a topic-matched quiz. Flow 2 sends them straight to the web quiz, no lead magnet. In both, the quiz, paywall and upsell run on the web, then a deep link drops the user into the course. Flow 3 is different — the owlymate.com marketing site only sells the app, so the quiz, paywall and upsell all happen <em>inside the app</em>. More variants (already-installed app, logged-in returning user) to be added next.
+  </div>
+
+  <div class="hint">Built for the team · click steps to expand · works on mobile</div>
+  <footer>© 2026 Owlymate · organic acquisition flows</footer>
+</div>
+
+<script>
+const flows = [
+  {
+    num: 1,
+    title: "Lead magnet → course",
+    sub: "New user via a reel with a comment-keyword lead magnet.",
+    steps: [
+      ["social","Video","Instagram, TikTok, YouTube Shorts (LinkedIn)","Organic short-form video on Instagram, TikTok or YouTube Shorts \u2014 occasionally LinkedIn too. Ends with a call to comment a keyword (e.g. \u201ccomment AI\u201d)."],
+      ["social","Auto-DM","Sends landing link","Commenting triggers an automatic DM containing the landing page link."],
+      ["web","Landing page","PDF card + quiz CTA","Mobile dark landing with the PDF freebie and the primary quiz CTA. Two ways forward: download the PDF or go to the quiz."],
+      ["data","PDF freebie","Quiz CTA inside","The downloadable lead magnet. Builds trust and has its own clickable quiz button on the last page — a second route into the quiz."],
+      ["web","Quiz","Topic-matched to lead magnet","Reached from the landing or the PDF. Topic matches the lead magnet (money → money quiz, skills → skills quiz). Determines AI level — the real conversion goal."],
+      ["data","Email capture","Before result","The user gives their email inside the quiz, before the result."],
+      ["money","Paywall","Result + offer","Quiz result plus the offer. Paywall lives in the quiz."],
+      ["money","Upsell","Additional offers","One or more additional offers — complementary plans, bundles, or add-ons to raise average order value."],
+      ["app","App install","Store → open (deep link)","Deep link to the store; after install the app opens directly on the personalized course."],
+      ["app","Course screen","Personalized path","The user lands on the course determined by their quiz result."],
+    ],
+    branchAfter: 2,
+    branchNote: "↳ PDF also links into the quiz",
+  },
+  {
+    num: 2,
+    title: "Direct quiz → course",
+    sub: "New user straight into the web quiz, no lead magnet.",
+    steps: [
+      [["social","Video","Instagram, TikTok, YouTube Shorts, LinkedIn","Organic short-form video. Direct call to take the quiz."],
+       ["social","Stories","Instagram, YouTube, TikTok, LinkedIn","A story with a swipe-up / link sticker straight to the quiz."],
+       ["social","Bio link","Instagram, YouTube, TikTok, LinkedIn","The link in the profile bio pointing to the quiz."]],
+      ["web","Quiz","Topic-matched to the content","All entry points lead here. The user enters the quiz immediately. Topic matches the content theme. Same quiz mechanic as Flow 1."],
+      ["data","Email capture","Before result","Email provided inside the quiz, before the result."],
+      ["money","Paywall","Result + offer","Quiz result plus the offer. Paywall lives in the quiz."],
+      ["money","Upsell","Additional offers","One or more additional offers after the paywall."],
+      ["app","App install","Store → open (deep link)","Deep link to the store, opens the app on the personalized course."],
+      ["app","Course screen","Personalized path","Personalized course based on the quiz result."],
+    ],
+  },
+  {
+    num: 3,
+    title: "Main site → app",
+    sub: "Reel to owlymate.com, which sells the app. Quiz, paywall & upsell live in-app.",
+    steps: [
+      ["social","Video","Instagram, TikTok, YouTube Shorts (LinkedIn)","Organic short-form video on Instagram, TikTok or YouTube Shorts \u2014 occasionally LinkedIn too. Points to the main site (link in bio). No keyword, no DM."],
+      ["web","owlymate.com","Marketing site, app CTAs","The full product site. Every CTA (\u201cGet the app\u201d, \u201cInstall\u201d) points to the app store — it sells the product, not a web quiz."],
+      ["app","App install","Store → open (deep link)","Deep link to the store; the app opens after install."],
+      ["app","In-app quiz","Builds personal profile","Unlike Flow 1 & 2, the quiz lives inside the app. It builds the personal profile as part of onboarding."],
+      ["money","Paywall","Result + offer (in app)","Shown inside the app with the result and offer — monetization happens in-product."],
+      ["money","Upsell","Additional offers","One or more additional offers after the paywall."],
+      ["app","Course screen","Personalized path","The user starts their personalized course — first lesson the same night."],
+    ],
+  },
+];
+
+const flowsEl = document.getElementById('flows');
+flows.forEach(flow => {
+  const col = document.createElement('div');
+  col.className = 'flow-col';
+  col.innerHTML = `<div class="flow-head"><div class="flow-num">${flow.num}</div>
+    <div class="flow-title">${flow.title}</div>
+    <div class="flow-sub">${flow.sub}</div></div>`;
+  const steps = document.createElement('div');
+  steps.className = 'steps';
+  flow.steps.forEach((s, i) => {
+    // Multiple entry points: s is an array of step-tuples
+    if (Array.isArray(s[0])) {
+      const group = document.createElement('div');
+      group.className = 'entry-group';
+      const lbl = document.createElement('div');
+      lbl.className = 'entry-label';
+      lbl.textContent = 'Entry points — any of:';
+      group.appendChild(lbl);
+      const grid = document.createElement('div');
+      grid.className = 'entry-grid';
+      s.forEach(sub => {
+        const [cat, title, subt, desc] = sub;
+        const sw = document.createElement('div');
+        sw.className = 'step-wrap';
+        sw.innerHTML = `
+          <div class="step s-${cat}" role="button" tabindex="0">
+            <div class="step-title"><span>${title}</span><span class="step-tag">Social</span></div>
+            <div class="step-sub">${subt}</div>
+            <div class="step-desc">${desc}</div>
+          </div>`;
+        grid.appendChild(sw);
+      });
+      group.appendChild(grid);
+      steps.appendChild(group);
+      if (i < flow.steps.length - 1) {
+        const conn = document.createElement('div');
+        conn.className = 'connector';
+        steps.appendChild(conn);
+      }
+      return;
+    }
+    const [cat, title, sub, desc] = s;
+    const sw = document.createElement('div');
+    sw.className = 'step-wrap';
+    sw.innerHTML = `
+      <div class="step s-${cat}" role="button" tabindex="0">
+        <div class="step-title"><span>${title}</span><span class="step-tag">${cat==='social'?'Social':cat==='web'?'Web':cat==='data'?'Data':cat==='money'?'$$':'App'}</span></div>
+        <div class="step-sub">${sub}</div>
+        <div class="step-desc">${desc}</div>
+      </div>`;
+    steps.appendChild(sw);
+    if (i < flow.steps.length - 1) {
+      const conn = document.createElement('div');
+      conn.className = 'connector';
+      steps.appendChild(conn);
+    }
+    if (flow.branchAfter === i && flow.branchNote) {
+      const bn = document.createElement('div');
+      bn.className = 'branch-note';
+      bn.textContent = flow.branchNote;
+      steps.appendChild(bn);
+    }
+  });
+  col.appendChild(steps);
+  flowsEl.appendChild(col);
+});
+
+flowsEl.addEventListener('click', e => {
+  const step = e.target.closest('.step');
+  if (step) step.classList.toggle('open');
+});
+flowsEl.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('step')) {
+    e.preventDefault();
+    e.target.classList.toggle('open');
+  }
+});
+</script>
+</body>
+</html>
